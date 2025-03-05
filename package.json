@@ -1,7 +1,7 @@
 {
   "name": "mon-app",
   "version": "0.1.0",
-  "homepage": "https://DaniWeen.github.io/app-base-reactjs",
+  "homepage": "https://daniween.github.io/app-base-reactjs",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",

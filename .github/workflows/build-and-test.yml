@@ -39,7 +39,7 @@ jobs:
 
       - name: Test app with curl
         run: |
-          curl -s http://localhost:3000
+          curl -l http://localhost:3000
 
 
 

@@ -1,0 +1,35 @@
+name: Build and Test React App
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Start app
+        run: |
+          nohup npm start & 
+          sleep 10  # attendre que le serveur démarre
+
+      - name: Test app with curl
+        run: |
+          curl -I http://localhost:3000

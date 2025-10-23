@@ -19,17 +19,25 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
-        run: npm install
+      - name: Clean install dependencies
+        run: npm ci
+
+      - name: Verify react-scripts is available
+        run: |
+          npm list react-scripts || npm install react-scripts
 
       - name: Build project
         run: npm run build
 
       - name: Start app
         run: |
-          nohup npm start & 
-          sleep 10  # attendre que le serveur démarre
+          nohup npm start &
+          sleep 10
 
       - name: Test app with curl
         run: |
-          curl -I http://localhost:3000
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000)
+          if [ "$STATUS" -ne 200 ]; then
+            echo "App did not start correctly (status: $STATUS)"
+            exit 1
+          fi
